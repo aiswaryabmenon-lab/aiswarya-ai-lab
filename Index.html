@@ -1,0 +1,954 @@
+<!--
+  =====================================================
+  AISWARYA'S AI LAB — GitHub Pages Deployment Guide
+  =====================================================
+  
+  HOW TO PUBLISH THIS ON GITHUB PAGES:
+  
+  1. Create a GitHub account (if you don't have one)
+  2. Create a new repository named: [your-username].github.io
+     Example: aiswarya-menon.github.io
+  3. Upload this file as "index.html" to that repo
+  4. Also upload your profile photo as "profile.jpg" in the same repo
+  5. Go to repo Settings → Pages → Source: "Deploy from a branch" → Branch: main
+  6. Wait 2-3 minutes, then visit: https://[your-username].github.io
+  
+  CUSTOM DOMAIN (optional):
+  - Buy a domain (e.g., aiswaryalab.com) from Namecheap/Google Domains
+  - Add a CNAME file to your repo with your domain
+  - Configure DNS to point to GitHub Pages
+  
+  PROFILE PHOTO:
+  - Replace "profile.jpg" reference below with your actual image filename
+  - Recommended: square crop, at least 400x400px
+  =====================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aiswarya's AI Lab</title>
+    <meta name="description" content="Aiswarya's AI Lab — Exploring what's next in tech through real AI prototypes, code, and experiments.">
+    <meta property="og:title" content="Aiswarya's AI Lab">
+    <meta property="og:description" content="Exploring what's next in tech through real AI prototypes, code, and experiments.">
+    <meta property="og:type" content="website">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #111118;
+            --bg-card: #14141d;
+            --bg-card-hover: #1a1a26;
+            --border: #222233;
+            --border-hover: #333350;
+            --text-primary: #e8e8f0;
+            --text-secondary: #8888a0;
+            --text-muted: #55556a;
+            --accent-green: #00ff88;
+            --accent-green-dim: #00cc6a;
+            --accent-blue: #5588ff;
+            --accent-purple: #aa66ff;
+            --accent-orange: #ff8844;
+            --accent-red: #ff4466;
+            --accent-cyan: #00ddcc;
+            --glow-green: rgba(0, 255, 136, 0.06);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'IBM Plex Mono', monospace;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(34, 34, 51, 0.12) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(34, 34, 51, 0.12) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 940px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 14px 0;
+            background: rgba(10, 10, 15, 0.88);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-green);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-logo span { color: var(--text-muted); }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 11px;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.8px;
+            transition: color 0.2s;
+            text-transform: uppercase;
+        }
+
+        .nav-links a:hover { color: var(--accent-green); }
+
+        /* HERO */
+        .hero {
+            padding: 150px 0 80px;
+        }
+
+        .hero-inner {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .hero-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hero-label::before {
+            content: '';
+            width: 16px;
+            height: 1px;
+            background: var(--accent-green);
+        }
+
+        .status-dot {
+            width: 6px; height: 6px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 2s ease-in-out infinite;
+            box-shadow: 0 0 8px var(--accent-green);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .hero h1 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 40px;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 24px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero h1 .highlight {
+            color: var(--accent-green);
+            text-shadow: 0 0 40px rgba(0, 255, 136, 0.15);
+        }
+
+        .hero-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.9;
+            margin-bottom: 28px;
+        }
+
+        .hero-description em {
+            color: var(--text-primary);
+            font-style: normal;
+        }
+
+        .hero-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .hero-tag {
+            font-size: 10px;
+            padding: 4px 12px;
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.3px;
+            transition: all 0.2s;
+        }
+
+        .hero-tag:hover {
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+            background: var(--glow-green);
+        }
+
+        .hero-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            overflow: hidden;
+            position: relative;
+            flex-shrink: 0;
+            background: var(--bg-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-photo .initials {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--accent-green);
+            opacity: 0.25;
+        }
+
+        .hero-photo::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.08);
+            pointer-events: none;
+        }
+
+        /* SECTIONS */
+        .section { padding: 70px 0; }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 44px;
+        }
+
+        .section-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--accent-green);
+            font-weight: 500;
+        }
+
+        .section-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* ABOUT */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 48px;
+        }
+
+        .about-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.9;
+        }
+
+        .about-text p { margin-bottom: 16px; }
+
+        .about-text strong {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .highlights {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .highlight-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 18px 20px;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: block;
+        }
+
+        .highlight-card:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-card-hover);
+            transform: translateX(4px);
+        }
+
+        .highlight-stat {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--accent-green);
+            margin-bottom: 2px;
+        }
+
+        .highlight-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            line-height: 1.5;
+        }
+
+        .highlight-source {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .highlight-source .arrow {
+            color: var(--accent-green);
+            font-size: 11px;
+            transition: transform 0.2s;
+        }
+
+        .highlight-card:hover .highlight-source .arrow {
+            transform: translateX(3px);
+        }
+
+        /* PROJECTS */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 26px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: block;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 3px; height: 0;
+            transition: height 0.3s ease;
+        }
+
+        .project-card:hover::before { height: 100%; }
+
+        .project-card:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-card-hover);
+            transform: translateY(-2px);
+        }
+
+        .project-card[data-accent="green"]::before { background: var(--accent-green); }
+        .project-card[data-accent="blue"]::before { background: var(--accent-blue); }
+        .project-card[data-accent="purple"]::before { background: var(--accent-purple); }
+        .project-card[data-accent="orange"]::before { background: var(--accent-orange); }
+        .project-card[data-accent="cyan"]::before { background: var(--accent-cyan); }
+
+        .project-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .project-badge {
+            font-size: 9px;
+            font-family: 'JetBrains Mono', monospace;
+            padding: 3px 9px;
+            border-radius: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-weight: 500;
+        }
+
+        .badge-live {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--accent-green);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .badge-building {
+            background: rgba(255, 136, 68, 0.1);
+            color: var(--accent-orange);
+            border: 1px solid rgba(255, 136, 68, 0.2);
+        }
+
+        .badge-soon {
+            background: rgba(85, 136, 255, 0.1);
+            color: var(--accent-blue);
+            border: 1px solid rgba(85, 136, 255, 0.2);
+        }
+
+        .project-icon { font-size: 18px; }
+
+        .project-name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .project-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 14px;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .project-tag {
+            font-size: 9px;
+            padding: 2px 7px;
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .project-featured {
+            grid-column: 1 / -1;
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 255, 136, 0.25);
+            border-radius: 4px;
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: block;
+        }
+
+        .project-featured::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at top left, rgba(0, 255, 136, 0.03), transparent 60%);
+            pointer-events: none;
+        }
+
+        .project-featured:hover {
+            background: var(--bg-card-hover);
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.04);
+        }
+
+        .featured-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-green);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .featured-name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .featured-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 680px;
+            margin-bottom: 18px;
+        }
+
+        /* WRITING */
+        .writing-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .writing-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 0;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .writing-item:first-child { border-top: 1px solid var(--border); }
+        .writing-item:hover { padding-left: 12px; }
+        .writing-item:hover .writing-title { color: var(--accent-green); }
+
+        .writing-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+            transition: color 0.2s;
+        }
+
+        .writing-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .writing-tag {
+            font-size: 9px;
+            padding: 3px 9px;
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .writing-date {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .writing-arrow {
+            color: var(--text-muted);
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .writing-item:hover .writing-arrow {
+            color: var(--accent-green);
+            transform: translateX(4px);
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 50px 0 36px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .footer-left span { color: var(--accent-green); }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 11px;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.3px;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .footer-link:hover { color: var(--accent-green); }
+        .footer-link svg { width: 13px; height: 13px; }
+
+        .cursor-glow {
+            position: fixed;
+            width: 350px; height: 350px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 255, 136, 0.025), transparent 70%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-in {
+            opacity: 0;
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+
+        @media (max-width: 768px) {
+            .hero-inner { grid-template-columns: 1fr; gap: 30px; }
+            .hero-photo { width: 120px; height: 120px; order: -1; }
+            .hero h1 { font-size: 28px; }
+            .about-grid { grid-template-columns: 1fr; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .project-featured { grid-column: 1; }
+            .footer-content { flex-direction: column; gap: 16px; text-align: center; }
+            .writing-item { flex-direction: column; align-items: flex-start; gap: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <nav>
+        <div class="container">
+            <a href="#" class="nav-logo">aiswarya<span>/</span>ai-lab</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Experiments</a></li>
+                <li><a href="#writing">Writing</a></li>
+                <li><a href="https://github.com/" target="_blank">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-inner">
+                <div class="hero-content">
+                    <div class="hero-label animate-in delay-1">
+                        <span class="status-dot"></span>
+                        Currently building
+                    </div>
+                    <h1 class="animate-in delay-2">
+                        Aiswarya's<br><span class="highlight">AI Lab</span>
+                    </h1>
+                    <p class="hero-description animate-in delay-3">
+                        A space for exploring, experimenting, and building. I prototype ideas I'm passionate about — using <em>real AI, real code</em>, and a healthy disregard for why something "can't be done yet."
+                    </p>
+                    <div class="hero-tags animate-in delay-4">
+                        <span class="hero-tag">AI Prototypes</span>
+                        <span class="hero-tag">Messaging & Social</span>
+                        <span class="hero-tag">Trust & Safety</span>
+                        <span class="hero-tag">Growth</span>
+                        <span class="hero-tag">Creator Economy</span>
+                    </div>
+                </div>
+                <div class="hero-photo animate-in delay-3">
+                    <!--
+                        TO ADD YOUR PHOTO:
+                        1. Save your photo as "profile.jpg" in the same folder
+                        2. Uncomment the img tag below
+                        3. Delete the initials div
+                    -->
+                    <!-- <img src="profile.jpg" alt="Aiswarya Menon"> -->
+                    <div class="initials">AM</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="about">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-number">01</span>
+                <h2 class="section-title">About this lab</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>
+                        <strong>This is where I build things.</strong> Not decks, not docs — working prototypes powered by real AI. Ideas I'm curious about, problems I think are unsolved, tools I wish existed.
+                    </p>
+                    <p>
+                        I'm a Product Manager by trade — I've spent years shipping at scale across social platforms, messaging, and safety. But this lab isn't about what I've already built. It's about <strong>what I think should exist next</strong>.
+                    </p>
+                    <p>
+                        Every experiment here starts with a question I can't stop thinking about. Some will work, some won't. That's the point.
+                    </p>
+                </div>
+                <div class="highlights">
+                    <a class="highlight-card" href="https://techcrunch.com/2025/11/18/tiktok-will-now-give-you-badges-for-limiting-your-doomscrolling/" target="_blank">
+                        <div class="highlight-stat">100+</div>
+                        <div class="highlight-label">In-app features built at TikTok, reaching 400M+ users</div>
+                        <div class="highlight-source"><span class="arrow">→</span> Featured in TechCrunch</div>
+                    </a>
+                    <a class="highlight-card" href="https://newsroom.tiktok.com/tiktok-launches-digital-well-being-hub-to-support-healthier-digital-habits" target="_blank">
+                        <div class="highlight-stat">4,500+</div>
+                        <div class="highlight-label">Media pieces covering products I've led</div>
+                        <div class="highlight-source"><span class="arrow">→</span> NYT · ABC News · The Times · CBC</div>
+                    </a>
+                    <a class="highlight-card" href="https://productschool.com/product-leaders/aiswarya-menon" target="_blank">
+                        <div class="highlight-stat">Speaker</div>
+                        <div class="highlight-label">Product School Featured Product Leader</div>
+                        <div class="highlight-source"><span class="arrow">→</span> View profile</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="projects">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-number">02</span>
+                <h2 class="section-title">Experiments</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="projects-grid">
+                <a class="project-featured" href="#">
+                    <div class="featured-label">▲ Featured Experiment</div>
+                    <div class="project-top">
+                        <div>
+                            <div class="featured-name">AI Message Intent Router</div>
+                            <div class="featured-desc">
+                                Creators get hundreds of DMs daily — fan love, brand deals, spam, collabs — all in one chaotic inbox. This AI agent classifies intent, routes messages into smart inboxes, generates suggested responses, and flags safety concerns with nuance. The inbox, reimagined.
+                            </div>
+                        </div>
+                        <span class="project-badge badge-building">Building</span>
+                    </div>
+                    <div class="project-tags">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">Claude API</span>
+                        <span class="project-tag">Streamlit</span>
+                        <span class="project-tag">Messaging</span>
+                        <span class="project-tag">Creator Economy</span>
+                    </div>
+                </a>
+
+                <a class="project-card" data-accent="blue" href="#">
+                    <div class="project-top">
+                        <span class="project-icon">🔮</span>
+                        <span class="project-badge badge-soon">Coming Soon</span>
+                    </div>
+                    <div class="project-name">Social Serendipity Engine</div>
+                    <div class="project-desc">
+                        Every platform optimizes for engagement loops. What if one optimized for meaningful, unexpected connections instead? AI-powered "Discover Weekly" — but for people.
+                    </div>
+                    <div class="project-tags">
+                        <span class="project-tag">Social Graph</span>
+                        <span class="project-tag">Discovery</span>
+                        <span class="project-tag">AI Matching</span>
+                    </div>
+                </a>
+
+                <a class="project-card" data-accent="purple" href="#">
+                    <div class="project-top">
+                        <span class="project-icon">📊</span>
+                        <span class="project-badge badge-soon">Coming Soon</span>
+                    </div>
+                    <div class="project-name">Creator Audience Intelligence</div>
+                    <div class="project-desc">
+                        Creators don't know who their audience really is. This AI tool generates audience personas, identifies superfan clusters, and surfaces monetization opportunities.
+                    </div>
+                    <div class="project-tags">
+                        <span class="project-tag">Creator Tools</span>
+                        <span class="project-tag">Analytics</span>
+                        <span class="project-tag">AI Analysis</span>
+                    </div>
+                </a>
+
+                <a class="project-card" data-accent="orange" href="#">
+                    <div class="project-top">
+                        <span class="project-icon">🛡️</span>
+                        <span class="project-badge badge-soon">Coming Soon</span>
+                    </div>
+                    <div class="project-name">Context-Aware Moderation</div>
+                    <div class="project-desc">
+                        Current moderation is binary — flag or don't. This AI system understands sarcasm, cultural context, and relationship dynamics to produce nuanced risk scores.
+                    </div>
+                    <div class="project-tags">
+                        <span class="project-tag">Safety</span>
+                        <span class="project-tag">NLP</span>
+                        <span class="project-tag">Moderation</span>
+                    </div>
+                </a>
+
+                <a class="project-card" data-accent="cyan" href="#">
+                    <div class="project-top">
+                        <span class="project-icon">⚡</span>
+                        <span class="project-badge badge-soon">Coming Soon</span>
+                    </div>
+                    <div class="project-name">Safety-Growth Flywheel</div>
+                    <div class="project-desc">
+                        Safety isn't the brakes — it's the engine. A framework that models how safety interventions directly drive retention and conversation quality.
+                    </div>
+                    <div class="project-tags">
+                        <span class="project-tag">Framework</span>
+                        <span class="project-tag">Growth</span>
+                        <span class="project-tag">Safety</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="writing">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-number">03</span>
+                <h2 class="section-title">Writing</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="writing-list">
+                <a class="writing-item" href="#">
+                    <div class="writing-title">Why Safety Is the Best Growth Lever Nobody's Using</div>
+                    <div class="writing-meta">
+                        <span class="writing-tag">Thesis</span>
+                        <span class="writing-date">Coming Soon</span>
+                        <span class="writing-arrow">→</span>
+                    </div>
+                </a>
+                <a class="writing-item" href="#">
+                    <div class="writing-title">The Creator DM Problem: Why Every Inbox Is Broken</div>
+                    <div class="writing-meta">
+                        <span class="writing-tag">Product</span>
+                        <span class="writing-date">Coming Soon</span>
+                        <span class="writing-arrow">→</span>
+                    </div>
+                </a>
+                <a class="writing-item" href="#">
+                    <div class="writing-title">Building AI Prototypes as a PM: What I've Learned</div>
+                    <div class="writing-meta">
+                        <span class="writing-tag">Process</span>
+                        <span class="writing-date">Coming Soon</span>
+                        <span class="writing-arrow">→</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <span>aiswarya/ai-lab</span> · Built with curiosity
+                </div>
+                <div class="footer-links">
+                    <a class="footer-link" href="https://github.com/" target="_blank">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        GitHub
+                    </a>
+                    <a class="footer-link" href="https://www.linkedin.com/in/aiswarya-menon-/" target="_blank">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        LinkedIn
+                    </a>
+                    <a class="footer-link" href="https://twitter.com/" target="_blank">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        X
+                    </a>
+                    <a class="footer-link" href="mailto:aiswaryabmenon@gmail.com">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
+                        Email
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const glow = document.getElementById('cursorGlow');
+        document.addEventListener('mousemove', e => {
+            glow.style.left = e.clientX + 'px';
+            glow.style.top = e.clientY + 'px';
+        });
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.section').forEach(s => {
+            s.style.opacity = '0';
+            s.style.transform = 'translateY(24px)';
+            s.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(s);
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', function(e) {
+                e.preventDefault();
+                const t = document.querySelector(this.getAttribute('href'));
+                if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+
+</body>
+</html>
